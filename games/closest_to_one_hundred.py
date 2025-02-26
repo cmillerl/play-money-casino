@@ -32,22 +32,38 @@ The house wins if the house gets a score closer to 100 than you.
         # The possible values from one roll of the dice.
         self.diceRollScore = randint(1, 100)
 
+        self.count = 0
+
     def gameStart(self):
-        while True:
-            userSelection = (
-                input("Do you want to read the games description?\n").lower().strip()
-            )
+        while self.count < 1:
+            userSelection = (input("Do you want to read the games description?\n")).lower().strip()  # fmt: skip
+            self.count += 1
             if userSelection in ["yes", "y"]:
                 print(self.gameDescription)
-                break
-            if userSelection in ["no", "n"]:
+            elif userSelection in ["no", "n"]:
+                print("Okay, let's start the game.")
                 break
             else:
                 print("Invalid input. Please enter yes or no.")
                 sleep(1)
+                self.count = 0
+                self.gameStart()
+
+            while True:
+                userSelection = input("Do you want to start the game?\n").lower().strip()  # fmt: skip
+                if userSelection in ["yes", "y"]:
+                    break
+                elif userSelection in ["no", "n"]:
+                    print("Okay, goodbye!")
+                    exit()
+                else:
+                    print("Invalid input. Please enter yes or no.")
+                    sleep(1)
 
         print("The game will now begin.")
+        sleep(1)
         self.player.displayPlayerBankroll()
+        sleep(1)
         self.house.displayHouseBankroll()
         sleep(1)
 
@@ -55,6 +71,7 @@ The house wins if the house gets a score closer to 100 than you.
         sleep(1)
 
         print("You will go first.")
+        sleep(1)
         self.playerTurn = True
         print("You will now roll the dice.")
         sleep(1)
@@ -66,9 +83,11 @@ The house wins if the house gets a score closer to 100 than you.
             print(f"Your score: {self.playerScore}")
             if self.playerScore == 100:
                 self.player.gamesWon += 1
+                sleep(1)
                 print("Congratulations! You win!")
                 self.player.updatePlayerBankroll(won=True)
-                self.house.bankroll -= self.player.bet
+                self.house.data["bankroll"] -= self.player.bet
+                self.house.saveHouseData()
                 print(f"Your bankroll: {self.player.data["bankroll"]:,}")
                 if self.player.continuePlay():
                     self.playerScore = 0
@@ -78,9 +97,11 @@ The house wins if the house gets a score closer to 100 than you.
                     self.gameStart()
             elif self.playerScore > 100:
                 self.player.data["gamesLost"] += 1
+                sleep(1)
                 print("You lose.")
                 self.player.updatePlayerBankroll(won=False)
-                self.house.bankroll += self.player.bet
+                self.house.data["bankroll"] += self.player.bet
+                self.house.saveHouseData()
                 print(f"Your bankroll: {self.player.data["bankroll"]:,}")
                 if self.player.continuePlay():
                     self.playerScore = 0
@@ -99,13 +120,16 @@ The house wins if the house gets a score closer to 100 than you.
         while self.houseTurn:
             self.diceRollScore = randint(1, 100)
             print(f"The house rolled a {self.diceRollScore}.")
+            sleep(1)
             self.houseScore += self.diceRollScore
             print(f"House score: {self.houseScore}")
             if self.houseScore > 100:
                 self.player.data["gamesWon"] += 1
+                sleep(1)
                 print("Congratulations! The house went over 100. You win!")
                 self.player.updatePlayerBankroll(won=True)
-                self.house.bankroll -= self.player.bet
+                self.house.data["bankroll"] -= self.player.bet
+                self.house.saveHouseData()
                 self.houseTurn = False
                 print(f"Your bankroll: {self.player.data["bankroll"]:,}")
                 if self.player.continuePlay():
@@ -116,9 +140,11 @@ The house wins if the house gets a score closer to 100 than you.
                     self.gameStart()
             elif self.houseScore > self.playerScore:
                 self.player.data["gamesLost"] += 1
+                sleep(1)
                 print("The house wins.")
                 self.player.updatePlayerBankroll(won=False)
-                self.house.bankroll += self.player.bet
+                self.house.data["bankroll"] += self.player.bet
+                self.house.saveHouseData()
                 print(f"Your bankroll: {self.player.data["bankroll"]:,}")
                 self.houseTurn = False
                 if self.player.continuePlay():
@@ -128,10 +154,12 @@ The house wins if the house gets a score closer to 100 than you.
                     self.houseTurn = False
                     self.gameStart()
             elif self.houseScore == self.playerScore:
+                sleep(1)
                 print("You win!")
                 self.player.data["gamesWon"] += 1
                 self.player.updatePlayerBankroll(won=True)
-                self.house.bankroll -= self.player.bet
+                self.house.data["bankroll"] -= self.player.bet
+                self.house.saveHouseData()
                 print(f"Your bankroll: {self.player.data["bankroll"]:,}")
                 self.houseTurn = False
                 if self.player.continuePlay():

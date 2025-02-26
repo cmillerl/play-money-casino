@@ -3,7 +3,7 @@ import os
 
 
 class Player:
-    def __init__(self, firstName = "Player_One"):
+    def __init__(self, firstName="Player_One"):
 
         # Player name.
         self.firstName = firstName
@@ -12,17 +12,17 @@ class Player:
         self.bet = 0
 
         self.folderPath = "json_data"
-        self.filePath = os.path.join(self.folderPath, "playerData.json")
+        self.filePath = os.path.join(self.folderPath, "player_data.json")
 
         # Default player data.
         self.data = {
             "firstName": self.firstName,
             "bankroll": 100000000,
             "gamesWon": 0,
-            "gamesLost": 0
+            "gamesLost": 0,
         }
 
-        os.makedirs(self.folderPath, exist_ok = True)
+        os.makedirs(self.folderPath, exist_ok=True)
 
         self.loadPlayerData()
 
@@ -48,13 +48,18 @@ class Player:
         """
 
         with open(self.filePath, "w") as file:
-            json.dump(self.data, file, indent = 4)
+            json.dump(self.data, file, indent=4)
 
     def getPlayerBet(self):
         """Prompt the player to enter a bet and validate it."""
         while True:
             try:
                 bet = input("How much would you like to bet? ").replace(",", "").strip()
+                if bet in ["max"]:
+                    self.bet = self.data["bankroll"]
+                    print(f"You bet: {self.bet:,}")
+                    break
+
                 bet = int(bet)
                 if bet <= 0:
                     print("Bet must be greater than 0. Try again.")
@@ -86,7 +91,7 @@ class Player:
             return self.data["gamesWon"]
         else:
             return self.data["gamesWon"] / self.data["gamesLost"]
-        
+
     def continuePlay(self):
         try:
             userSelection = input("Do you want to play again?\n").lower().strip()
@@ -94,6 +99,6 @@ class Player:
                 return True
             else:
                 print("Okay, goodbye!")
-                return False
+                exit()
         except ValueError:
             print("Invalid input. Please enter yes or no.")
