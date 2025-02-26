@@ -1,5 +1,6 @@
 import json
 import os
+from utilities import errors
 
 
 class Player:
@@ -51,11 +52,13 @@ class Player:
             json.dump(self.data, file, indent=4)
 
     def getPlayerBet(self):
-        """Prompt the player to enter a bet and validate it."""
+        """
+        Prompt the player to enter a bet and validate it.
+        """
         while True:
             try:
                 bet = input("How much would you like to bet? ").replace(",", "").strip()
-                if bet in ["max"]:
+                if bet in ["max", "all", "maximum"]:
                     self.bet = self.data["bankroll"]
                     print(f"You bet: {self.bet:,}")
                     break
@@ -70,7 +73,7 @@ class Player:
                     print(f"You bet: {self.bet:,}")
                     break
             except ValueError:
-                print("Invalid input! Please enter a number.")
+                errors.errorHandler()
 
     def updatePlayerBankroll(self, won: bool):
         """Update the players bankroll based on a win or loss."""
@@ -93,12 +96,12 @@ class Player:
             return self.data["gamesWon"] / self.data["gamesLost"]
 
     def continuePlay(self):
-        try:
+        while True:
             userSelection = input("Do you want to play again?\n").lower().strip()
             if userSelection in ["yes", "y"]:
                 return True
-            else:
+            elif userSelection in ["no", "n"]:
                 print("Okay, goodbye!")
                 exit()
-        except ValueError:
-            print("Invalid input. Please enter yes or no.")
+            else:
+                errors.errorHandler()

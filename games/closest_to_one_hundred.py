@@ -1,5 +1,6 @@
 from random import randint
 from time import sleep
+from utilities import errors
 import player
 import house
 
@@ -44,8 +45,7 @@ The house wins if the house gets a score closer to 100 than you.
                 print("Okay, let's start the game.")
                 break
             else:
-                print("Invalid input. Please enter yes or no.")
-                sleep(1)
+                errors.errorHandler()
                 self.count = 0
                 self.gameStart()
 
@@ -57,8 +57,7 @@ The house wins if the house gets a score closer to 100 than you.
                     print("Okay, goodbye!")
                     exit()
                 else:
-                    print("Invalid input. Please enter yes or no.")
-                    sleep(1)
+                    errors.errorHandler()
 
         print("The game will now begin.")
         sleep(1)
@@ -110,10 +109,20 @@ The house wins if the house gets a score closer to 100 than you.
                     self.houseTurn = False
                     self.gameStart()
             else:
-                userSelection = (input("Do you want to roll the dice again?\n").lower().strip())  # fmt: skip
-                if userSelection not in ["yes", "y"]:
-                    self.playerTurn = False
-                    self.houseTurn = True
+                while True:
+                    userSelection = (input("Do you want to roll the dice again?\n").lower().strip()) # fmt: skip
+                    if userSelection in ["yes", "y"]:
+                        print("You will roll again.")
+                        sleep(1)
+                        break
+                    elif userSelection in ["no", "n"]:
+                        print("Your turn is over.")
+                        sleep(1)
+                        self.playerTurn = False
+                        self.houseTurn = True
+                        break
+                    else:
+                        errors.errorHandler()
 
         print("The house will now roll the dice.")
         sleep(1)
