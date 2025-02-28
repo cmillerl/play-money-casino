@@ -22,7 +22,15 @@
             ]
         },
         "[Dracula Theme Soft]": {
-            "comments": "#fc2c60"
+            "comments": "#fc2c60",
+            "textMateRules": [
+                {
+                    "scope": "string.quoted.docstring.multi.python",
+                    "settings": {
+                        "foreground": "#fc2c60"
+                    }
+                }
+            ]
         }
     }
 }

@@ -1,8 +1,9 @@
 import json
 import os
 
+
 class House:
-    def __init__(self, name = "House"):
+    def __init__(self, name="House"):
 
         self.name = name
 
@@ -10,10 +11,7 @@ class House:
         self.filePath = os.path.join(self.folderPath, "house_data.json")
 
         # Default house data.
-        self.data = {
-            "name": self.name,
-            "bankroll": 100000000000000
-        }
+        self.data = {"name": self.name, "bankroll": 100000000000000}
 
         os.makedirs(self.folderPath, exist_ok=True)
 

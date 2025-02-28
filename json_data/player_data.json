@@ -1,6 +1,7 @@
 {
-    "firstName": "Player_One",
-    "bankroll": 1102891893,
-    "gamesWon": 10,
-    "gamesLost": 16
+    "1": {
+        "bankroll": 123213160681724,
+        "gamesWon": 11,
+        "gamesLost": 20
+    }
 }

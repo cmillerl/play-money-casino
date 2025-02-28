@@ -1,13 +1,18 @@
 import json
 import os
 from utilities import errors
+import house
+from time import sleep
 
 
 class Player:
-    def __init__(self, firstName="Player_One"):
+    def __init__(self, PlayerID=None):
 
         # Player name.
-        self.firstName = firstName
+        if PlayerID is None:
+            self.PlayerID = self.getPlayerName()
+        else:
+            self.PlayerID = PlayerID
 
         # Initial player bet set to 0.
         self.bet = 0
@@ -17,14 +22,12 @@ class Player:
 
         # Default player data.
         self.data = {
-            "firstName": self.firstName,
             "bankroll": 100000000,
             "gamesWon": 0,
             "gamesLost": 0,
         }
 
         os.makedirs(self.folderPath, exist_ok=True)
-
         self.loadPlayerData()
 
     def loadPlayerData(self):
@@ -32,24 +35,27 @@ class Player:
         Load player data from a JSON file, if not found create a new one.
         """
         if os.path.exists(self.filePath):
-            if os.path.getsize(self.filePath) == 0:
-                self.savePlayerData()
-            else:
-                try:
-                    with open(self.filePath, "r") as file:
-                        self.data = json.load(file)
-                except json.JSONDecodeError:
-                    self.savePlayerData()
+            try:
+                with open(self.filePath, "r") as file:
+                    allData = json.load(file)
+                if self.PlayerID in allData:
+                    self.data = allData[self.PlayerID]
+                else:
+                    allData[self.PlayerID] = self.data
+                    self.savePlayerData(allData)
+            except json.JSONDecodeError:
+                print("Error reading JSON File.")
+                self.savePlayerData({self.PlayerID: self.data})
         else:
-            self.savePlayerData()
+            self.savePlayerData({self.PlayerID: self.data})
 
-    def savePlayerData(self):
+    def savePlayerData(self, allData):
         """
         Save player data to a JSON file.
         """
 
         with open(self.filePath, "w") as file:
-            json.dump(self.data, file, indent=4)
+            json.dump(allData, file, indent=4)
 
     def getPlayerBet(self):
         """
@@ -57,7 +63,9 @@ class Player:
         """
         while True:
             try:
-                bet = input("How much would you like to bet? ").replace(",", "").strip()
+                bet = (
+                    input("How much would you like to bet?\n").replace(",", "").strip()
+                )
                 if bet in ["max", "all", "maximum"]:
                     self.bet = self.data["bankroll"]
                     print(f"You bet: {self.bet:,}")
@@ -76,26 +84,53 @@ class Player:
                 errors.errorHandler()
 
     def updatePlayerBankroll(self, won: bool):
-        """Update the players bankroll based on a win or loss."""
+        """
+        Update the players bankroll based on a win or loss.
+        """
         if won:
+            print("Congratulations, you win this round!")
             self.data["bankroll"] += self.bet
+            self.data["gamesWon"] += 1
+            house.House().data["bankroll"] -= self.bet
+            sleep(1)
+            self.displayPlayerBankroll()
         else:
+            print("Sorry, you lose this round.")
             self.data["bankroll"] -= self.bet
+            self.data["gamesLost"] += 1
+            house.House().data["bankroll"] += self.bet
+            sleep(1)
+            self.displayPlayerBankroll()
 
-        self.savePlayerData()
+        with open(self.filePath, "r") as file:
+            allData = json.load(file)
+
+        allData[self.PlayerID] = self.data
+        self.savePlayerData(allData)
 
     def displayPlayerBankroll(self):
-        """Print the players current bankroll."""
+        """
+        Print the players current bankroll.
+        """
         print(f"Your bankroll: {self.data['bankroll']:,}")
 
-    def winLossRatio(self):
-        """Calculate and return the win/loss ratio."""
-        if self.data["gamesLost"] == 0:
-            return self.data["gamesWon"]
-        else:
-            return self.data["gamesWon"] / self.data["gamesLost"]
+    def winLossRatio(self, playerData):
+        """
+        Calculate and return the win/loss ratio.
+        """
+
+        wins = playerData.get("gamesWon")
+        losses = playerData.get("gamesLost")
+        ratio = wins / losses if losses != 0 else wins
+        return f"{ratio:.2f}"
 
     def continuePlay(self):
+        """
+        Prompt the user to play again or exit.
+        """
+        if self.data["bankroll"] <= 0:
+            print("You are out of funds.")
+            exit()
         while True:
             userSelection = input("Do you want to play again?\n").lower().strip()
             if userSelection in ["yes", "y"]:
@@ -105,3 +140,37 @@ class Player:
                 exit()
             else:
                 errors.errorHandler()
+
+    def getPlayerStatistics(self, PlayerID=None):
+        """
+        Return the players statistics.
+        """
+
+        if PlayerID is None:
+            PlayerID = self.PlayerID
+
+        with open(self.filePath, "r") as file:
+            allData = json.load(file)
+
+        if PlayerID in allData:
+            playerData = allData[PlayerID]
+            return (
+                f"Player: {PlayerID}\n"
+                f"Bankroll: {playerData['bankroll']:,}\n"
+                f"Games Won: {playerData['gamesWon']}\n"
+                f"Games Lost: {playerData['gamesLost']}\n"
+                f"Win/Loss Ratio: {self.winLossRatio(playerData)}"
+            )
+
+    def getPlayerName(self):
+        """
+        Prompt the user to enter their player name.
+        """
+        while True:
+            playerName = input("Enter your name: ").strip().title()
+            if not playerName:
+                errors.errorHandler()
+            elif len(playerName) > 10:
+                print("Name must be less than 11 characters.")
+            else:
+                return playerName
