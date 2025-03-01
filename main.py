@@ -1,4 +1,5 @@
-from games.closest_to_one_hundred import ClosestToOneHundred
+from games.game100 import Game100
+from games.game21 import Game21
 import player
 
 
@@ -6,9 +7,10 @@ class Main:
     def __init__(self):
         print("""
 Welcome to the casino!
-1. Play game: closest to 100.
-2. Display player statistics.
-3. Exit the casino.
+1. Play game: 100.
+2. Play game: Blackjack.
+3. Display player statistics.
+4. Exit the casino.
 """)  # fmt: skip
 
         while True:
@@ -18,13 +20,16 @@ Welcome to the casino!
                 playerSelection = int(playerSelection)
 
                 if playerSelection == 1:
-                    self.game = ClosestToOneHundred()
+                    self.game = Game100()
                     self.game.gameStart()
                 elif playerSelection == 2:
+                    self.game = Game21()
+                    self.game.gameStart()
+                elif playerSelection == 3:
                     self.player = player.Player()
                     print(self.player.getPlayerStatistics())
                     exit()
-                elif playerSelection == 3:
+                elif playerSelection == 4:
                     print("Okay goodbye.")
                     exit()
                 else:

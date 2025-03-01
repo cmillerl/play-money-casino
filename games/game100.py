@@ -5,7 +5,7 @@ import player
 import house
 
 
-class ClosestToOneHundred:
+class Game100:
     def __init__(self):
 
         # Game description
