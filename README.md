@@ -1,11 +1,38 @@
-# How To Play
+# Casino Game Collection
 
-> Execute main.py
+A collection of casino games implemented in Python, featuring a user-friendly interface and persistent player data.
 
-### Features to be added (list will be updated continually)
+## Games Available
 
-> Allow user to enter their own information for play
+- **Closest to One Hundred**: Try to get as close to 100 as possible without going over.
 
-> Add more options within menu such as get player data, pick different games, etc
+- **Blackjack (21)**: Beat the dealer's hand without exceeding 21.
 
-> Add more games
+## How To Play
+
+1. **Launch the game**:
+   ```
+   python main.py
+   ```
+
+2. **Navigate the menu**:
+   - Select an available option.
+
+3. **Player Information**:
+   - Enter your player name.
+
+4. **Saving Progress**:
+   - All player data is automatically saved after each game.
+   - Track your wins, losses, and bankroll over time.
+
+## Development Roadmap
+
+### Completed Features
+- ✓ Player data persistence
+- ✓ Multiple game options
+- ✓ Player statistics tracking
+- ✓ House and player bankroll tracking
+
+### Upcoming Features
+- Additional casino games
+- Improved user interface

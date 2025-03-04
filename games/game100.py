@@ -10,14 +10,21 @@ class Game100:
 
         # Game description
         self.gameDescription = """
-1. You'll roll first, getting a random number between 1-100 each time.
-2. You can roll as many times as you want, adding to your total score.
-3. If you go over 100, you lose immediately.
-4. If you decide to stop, the house will then roll.
-5. The house must keep rolling until it either:
-   - Beats your score.
-   - Ties your score.
-   - Rolls over 100.
+100:
+
+Objective:
+Get a score as close to 100 as possible without going over.
+
+Rules:
+You will roll first, getting a random number between 1-100 each roll.
+You can roll as many times as you want, adding to your total score.
+If you go over 100, you lose immediately.
+If you decide to stop, the house will then roll.
+
+The house must keep rolling until it either:
+- Beats your score.
+- Ties your score.
+- Rolls over 100.
 
 You win if the house ties your score or rolls over 100.
 You lose if the house beats your score.
