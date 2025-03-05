@@ -1,19 +1,15 @@
 from games.game100 import Game100
 from games.game21 import Game21
+from utilities.information import printMenu
 import player
 
 
 class Main:
     def __init__(self):
-        print("""
-Welcome to the casino!
-1. Play game: 100.
-2. Play game: Blackjack.
-3. Display player statistics.
-4. Exit the casino.
-""")  # fmt: skip
+        self.player = player.Player()
 
         while True:
+            printMenu(self)
             playerSelection = input("Select an available option from the menu: ").strip()  # fmt: skip
 
             if playerSelection.isdigit():
@@ -26,10 +22,10 @@ Welcome to the casino!
                     self.game = Game21()
                     self.game.gameStart()
                 elif playerSelection == 3:
-                    self.player = player.Player()
                     print(self.player.getPlayerStatistics())
-                    exit()
                 elif playerSelection == 4:
+                    self.player.resetPlayerData()
+                elif playerSelection == 5:
                     print("Okay goodbye.")
                     exit()
                 else:

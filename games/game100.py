@@ -30,8 +30,7 @@ You win if the house ties your score or rolls over 100.
 You lose if the house beats your score.
         """
 
-        # Initialize the player and house objects.
-        self.player = player.Player()
+        # Initialize the house object.
         self.house = house.House()
 
         # Scores for the player and the house set to 0.

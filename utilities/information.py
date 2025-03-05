@@ -27,3 +27,17 @@ def displayGameInformation(self):
                 exit()
             else:
                 errors.errorHandler()
+
+
+def printMenu(self):
+    """
+    Print the menu for the game.
+    """
+    print("""
+Welcome to the casino!
+1. Play game: 100.
+2. Play game: Blackjack.
+3. Display player statistics.
+4. Reset player data.
+5. Exit the casino.
+""")  # fmt: skip

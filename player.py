@@ -154,23 +154,41 @@ class Player:
 
         if PlayerID in allData:
             playerData = allData[PlayerID]
-            return (
+            print(
                 f"Player: {PlayerID}\n"
                 f"Bankroll: {playerData['bankroll']:,}\n"
                 f"Games Won: {playerData['gamesWon']}\n"
                 f"Games Lost: {playerData['gamesLost']}\n"
                 f"Win/Loss Ratio: {self.winLossRatio(playerData)}"
             )
+            sleep(3)
 
     def getPlayerName(self):
         """
         Prompt the user to enter their player name.
         """
         while True:
-            playerName = input("Enter your name: ").strip().title()
+            playerName = input("Enter your player name: ").strip().title()
             if not playerName:
                 errors.errorHandler()
             elif len(playerName) > 10:
                 print("Name must be less than 11 characters.")
             else:
                 return playerName
+
+    def resetPlayerData(self):
+        """
+        Resets the specified players data back to default.
+
+        100 million bankroll, 0 games won, 0 games lost.
+        """
+
+        with open(self.filePath, "r") as file:
+            allData = json.load(file)
+            allData[self.PlayerID]["bankroll"] = 100000000
+            allData[self.PlayerID]["gamesWon"] = 0
+            allData[self.PlayerID]["gamesLost"] = 0
+            self.savePlayerData(allData)
+            print(f"Player {self.PlayerID}, data reset.")
+            sleep(3)
+            return True

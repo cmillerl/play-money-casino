@@ -29,8 +29,7 @@ Rules:
 - Dealer must hit until hand value is 17 or higher
         """
 
-        # Initialize the player and house objects.
-        self.player = player.Player()
+        # Initialize the house object.
         self.house = house.House()
 
         # Scores for the player and the house set to 0.
