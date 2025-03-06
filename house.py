@@ -1,5 +1,6 @@
 import json
 import os
+from time import sleep
 
 
 class House:
@@ -43,3 +44,13 @@ class House:
     def displayHouseBankroll(self):
         """Print the houses current bankroll."""
         print(f"House bankroll: {self.data['bankroll']:,}")
+
+    def resetHouseData(self):
+        """
+        Reset the house data to the default values.
+        """
+        self.data = {"name": self.name, "bankroll": 100000000000000}
+        self.saveHouseData()
+        print("House data has been reset...")
+        sleep(3)
+        exit()

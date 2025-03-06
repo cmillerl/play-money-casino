@@ -6,7 +6,7 @@ import house
 
 
 class Game100:
-    def __init__(self):
+    def __init__(self, player, house):
 
         # Game description
         self.gameDescription = """
@@ -31,7 +31,8 @@ You lose if the house beats your score.
         """
 
         # Initialize the house object.
-        self.house = house.House()
+        self.player = player
+        self.house = house
 
         # Scores for the player and the house set to 0.
         self.houseScore = 0

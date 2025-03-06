@@ -11,6 +11,9 @@ logging.basicConfig(
 
 
 def errorHandler():
+    """
+    Handles errors and displays a message to the user.
+    """
     logging.error("An error occurred with your input.")
     sleep(1)
     print("Trying again...")

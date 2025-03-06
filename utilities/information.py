@@ -39,5 +39,6 @@ Welcome to the casino!
 2. Play game: Blackjack.
 3. Display player statistics.
 4. Reset player data.
-5. Exit the casino.
+5. Reset house data.
+6. Exit the casino.
 """)  # fmt: skip

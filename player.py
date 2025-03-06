@@ -168,13 +168,14 @@ class Player:
         Prompt the user to enter their player name.
         """
         while True:
-            playerName = input("Enter your player name: ").strip().title()
-            if not playerName:
+            name = input("Enter your player name: ").strip().title()
+            if not name:
                 errors.errorHandler()
-            elif len(playerName) > 10:
+            elif len(name) > 10:
                 print("Name must be less than 11 characters.")
             else:
-                return playerName
+                self.playerID = name
+                return name
 
     def resetPlayerData(self):
         """
@@ -191,4 +192,4 @@ class Player:
             self.savePlayerData(allData)
             print(f"Player {self.PlayerID}, data reset.")
             sleep(3)
-            return True
+            exit()

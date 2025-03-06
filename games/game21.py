@@ -6,7 +6,7 @@ import house
 
 
 class Game21:
-    def __init__(self):
+    def __init__(self, player, house):
 
         # Game description
         self.gameDescription = """
@@ -30,7 +30,8 @@ Rules:
         """
 
         # Initialize the house object.
-        self.house = house.House()
+        self.player = player
+        self.house = house
 
         # Scores for the player and the house set to 0.
         self.houseScore = 0
@@ -54,18 +55,20 @@ Rules:
         self.playerHand = []
         self.houseHand = []
 
+        self.count = 0
+
     def gameStart(self):
-        # information.displayGameInformation(self)
+        information.displayGameInformation(self)
 
-        # print("The game will now begin.")
-        # sleep(1)
-        # self.player.displayPlayerBankroll()
-        # sleep(1)
-        # self.house.displayHouseBankroll()
-        # sleep(1)
+        print("The game will now begin.")
+        sleep(1)
+        self.player.displayPlayerBankroll()
+        sleep(1)
+        self.house.displayHouseBankroll()
+        sleep(1)
 
-        # self.player.getPlayerBet()
-        # sleep(1)
+        self.player.getPlayerBet()
+        sleep(1)
 
         print("Shuffling The Deck...")
         sleep(1)
@@ -93,9 +96,9 @@ Rules:
         while self.playerTurn:
             if self.playerScore == 21 and self.timesHit == 0:
                 print("Blackjack! You win 2.5x your bet!")
-                self.player.data["bankroll"] += self.bet * 2.5
+                self.player.data["bankroll"] += round(self.bet * 2.5, 0)
                 self.player.data["gamesWon"] += 1
-                self.house.data["bankroll"] -= self.bet * 2.5
+                self.house.data["bankroll"] -= round(self.bet * 2.5, 0)
                 sleep(1)
                 self.player.displayPlayerBankroll()
                 self.house.saveHouseData()
