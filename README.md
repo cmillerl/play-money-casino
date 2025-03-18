@@ -8,6 +8,8 @@ A collection of casino games implemented in Python, featuring a user-friendly in
 
 - **Blackjack (21)**: Beat the dealer's hand without exceeding 21.
 
+- **100 to 0**: Take turns removing points from a shared pool of 100. Roll dice to determine how many points to remove. First player to reach exactly 0 wins!
+
 ## How To Play
 
 1. **Launch the game**:
