@@ -1,6 +1,7 @@
-from games.game100 import Game100
-from games.game21 import Game21
-from utilities.information import printMenu
+from games.game_100 import Game100
+from games.game_21 import Game21
+from games.game_100_to_0 import Game100To0
+from utilities.information import printMenu, exitCasino
 from utilities.errors import errorHandler
 import player
 import house
@@ -25,14 +26,16 @@ class Main:
                     self.game = Game21(player=self.player, house=self.house)
                     self.game.gameStart()
                 elif playerSelection == 3:
+                    self.game = Game100To0(player=self.player, house=self.house)
+                    self.game.gameStart()
+                elif playerSelection == 100:
                     print(self.player.getPlayerStatistics())
-                elif playerSelection == 4:
+                elif playerSelection == 101:
                     self.player.resetPlayerData()
-                elif playerSelection == 5:
+                elif playerSelection == 102:
                     self.house.resetHouseData()
-                elif playerSelection == 6:
-                    print("Okay goodbye.")
-                    exit()
+                elif playerSelection == 0:
+                    exitCasino(self)
                 else:
                     errorHandler()
             else:

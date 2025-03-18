@@ -132,7 +132,7 @@ class Player:
             print("You are out of funds.")
             exit()
         while True:
-            userSelection = input("Do you want to play again?\n").lower().strip()
+            userSelection = input("Do you want to play again? (y/n)\n").lower().strip()
             if userSelection in ["yes", "y"]:
                 return True
             elif userSelection in ["no", "n"]:
