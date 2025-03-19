@@ -17,7 +17,8 @@ class Player:
         # Initial player bet set to 0.
         self.bet = 0
 
-        self.folderPath = "json_data"
+        self.directory = os.path.dirname(os.path.abspath(__file__))
+        self.folderPath = os.path.join(self.directory, "json_data")
         self.filePath = os.path.join(self.folderPath, "player_data.json")
 
         # Default player data.

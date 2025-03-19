@@ -17,7 +17,7 @@ Objective:
 - Both players share the same pool of points.
 
 Rules:
-- Players take turns rolling a dice with a range from 0 to the number of points left.
+- Players take turns rolling a dice with a range from 0 to the number of (points left - 1).
 - You roll first, and your roll amount is subtracted from points left.
 - The house then rolls, and its roll is subtracted from points left.
 - Turns alternate until someone reaches exactly 0.
