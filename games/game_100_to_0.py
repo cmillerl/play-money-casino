@@ -35,10 +35,6 @@ Winning/Losing:
         self.player = player
         self.house = house
 
-        # Scores for the player and the house set to 0.
-        self.houseScore = 0
-        self.playerScore = 0
-
         # Boolean values to determine whose turn it is.
         self.houseTurn = False
         self.playerTurn = False

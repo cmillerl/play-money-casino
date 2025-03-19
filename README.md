@@ -10,6 +10,8 @@ A collection of casino games implemented in Python, featuring a user-friendly in
 
 - **100 to 0**: Take turns removing points from a shared pool of 100. Roll dice to determine how many points to remove. First player to reach exactly 0 wins!
 
+- **Slots**: Match 3 symbols to win!
+
 ## How To Play
 
 1. **Launch the game**:

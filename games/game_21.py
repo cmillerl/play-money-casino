@@ -100,6 +100,7 @@ Rules:
                 self.player.data["gamesWon"] += 1
                 self.house.data["bankroll"] -= round(self.bet * 2.5, 0)
                 sleep(1)
+                self.player.savePlayerData(self.player.data)
                 self.player.displayPlayerBankroll()
                 self.house.saveHouseData()
                 if self.player.continuePlay():

@@ -1,7 +1,10 @@
 {
+    "bankroll": 100926423,
+    "gamesWon": 4,
+    "gamesLost": 121,
     "1": {
-        "bankroll": 100025000,
-        "gamesWon": 1,
-        "gamesLost": 0
+        "bankroll": 100876423,
+        "gamesWon": 4,
+        "gamesLost": 123
     }
 }

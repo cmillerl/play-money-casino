@@ -37,6 +37,7 @@ Welcome to the casino!
 1. Play game: 100.
 2. Play game: Blackjack.
 3. Play game: 100 to 0.
+4. Play game: Slots.
 100. Display player statistics.
 101. Reset player data.
 102. Reset house data.

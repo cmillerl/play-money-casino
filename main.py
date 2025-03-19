@@ -1,6 +1,7 @@
 from games.game_100 import Game100
 from games.game_21 import Game21
 from games.game_100_to_0 import Game100To0
+from games.game_slots import GameSlots
 from utilities.information import printMenu, exitCasino
 from utilities.errors import errorHandler
 import player
@@ -27,6 +28,9 @@ class Main:
                     self.game.gameStart()
                 elif playerSelection == 3:
                     self.game = Game100To0(player=self.player, house=self.house)
+                    self.game.gameStart()
+                elif playerSelection == 4:
+                    self.game = GameSlots(player=self.player, house=self.house)
                     self.game.gameStart()
                 elif playerSelection == 100:
                     print(self.player.getPlayerStatistics())
