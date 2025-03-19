@@ -1,0 +1,10 @@
+# Ignores cache directories in root.
+__pycache__/
+
+# Ignore cache directories in all subdirectories.
+**/__pycache__/
+
+# Ignore python compiled files.
+*.pyc
+*.pyo
+*.pyd
