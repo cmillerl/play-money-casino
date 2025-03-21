@@ -33,7 +33,7 @@ class Main:
                     self.game = GameSlots(player=self.player, house=self.house)
                     self.game.gameStart()
                 elif playerSelection == 100:
-                    print(self.player.getPlayerStatistics())
+                    self.player.getPlayerStatistics()
                 elif playerSelection == 101:
                     self.player.resetPlayerData()
                 elif playerSelection == 102:
@@ -41,9 +41,9 @@ class Main:
                 elif playerSelection == 0:
                     exitCasino(self)
                 else:
-                    errorHandler()
+                    errorHandler(self)
             else:
-                errorHandler()
+                errorHandler(self)
 
 
 if __name__ == "__main__":

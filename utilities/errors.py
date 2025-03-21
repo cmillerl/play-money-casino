@@ -10,7 +10,7 @@ logging.basicConfig(
 )
 
 
-def errorHandler():
+def errorHandler(self):
     """
     Handles errors and displays a message to the user.
     """

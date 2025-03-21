@@ -1,6 +1,7 @@
 import json
 import os
-from utilities import errors
+from utilities.errors import errorHandler
+from utilities.information import exitCasino
 import house
 from time import sleep
 
@@ -82,7 +83,7 @@ class Player:
                     print(f"You bet: {self.bet:,}")
                     break
             except ValueError:
-                errors.errorHandler()
+                errorHandler(self)
 
     def updatePlayerBankroll(self, won: bool):
         """
@@ -137,10 +138,9 @@ class Player:
             if userSelection in ["yes", "y"]:
                 return True
             elif userSelection in ["no", "n"]:
-                print("Okay, goodbye!")
-                exit()
+                exitCasino(self)
             else:
-                errors.errorHandler()
+                errorHandler(self)
 
     def getPlayerStatistics(self, PlayerID=None):
         """
@@ -155,14 +155,29 @@ class Player:
 
         if PlayerID in allData:
             playerData = allData[PlayerID]
+            print("\nPlayer Statistics")
+            print(("_" * 17) + "\n")
             print(
-                f"Player: {PlayerID}\n"
+                f"Player Name: {PlayerID}\n"
                 f"Bankroll: {playerData['bankroll']:,}\n"
                 f"Games Won: {playerData['gamesWon']}\n"
                 f"Games Lost: {playerData['gamesLost']}\n"
                 f"Win/Loss Ratio: {self.winLossRatio(playerData)}"
             )
-            sleep(3)
+            totalAmountWonLost = playerData["bankroll"] - 100000000
+            if totalAmountWonLost > 0:
+                print(f"Total Amount Won: {totalAmountWonLost:,} \n")
+            elif totalAmountWonLost < 0:
+                print(f"Total Amount Lost: {totalAmountWonLost:,} \n")
+
+        while True:
+            attemptExit = input("Do you want to return to the main menu? (y/n):\n").lower().strip()
+            if attemptExit in ["yes", "y"]:
+                break
+            elif attemptExit in ["no", "n"]:
+                exitCasino(self)
+            else:
+                errorHandler(self)
 
     def getPlayerName(self):
         """
@@ -171,7 +186,7 @@ class Player:
         while True:
             name = input("Enter your player name: ").strip().title()
             if not name:
-                errors.errorHandler()
+                errorHandler(self)
             elif len(name) > 10:
                 print("Name must be less than 11 characters.")
             else:
@@ -185,11 +200,24 @@ class Player:
         100 million bankroll, 0 games won, 0 games lost.
         """
 
+        while True:
+            print("WARNING: This will reset your player data.")
+            print("This action can't be undone.")
+            userSelection = input("Do you want to continue? (y/n)\n").lower().strip()
+            if userSelection in ["yes", "y"]:
+                break
+            elif userSelection in ["no", "n"]:
+                exitCasino(self)
+            else:
+                errorHandler(self)
+
         with open(self.filePath, "r") as file:
             allData = json.load(file)
-            allData[self.PlayerID]["bankroll"] = 100000000
-            allData[self.PlayerID]["gamesWon"] = 0
-            allData[self.PlayerID]["gamesLost"] = 0
+            allData[self.PlayerID] = {
+                "bankroll": 100000000,
+                "gamesWon": 0,
+                "gamesLost": 0,
+            }
             self.savePlayerData(allData)
             print(f"Player {self.PlayerID}, data reset.")
             sleep(3)

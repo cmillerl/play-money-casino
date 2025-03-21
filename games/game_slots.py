@@ -31,7 +31,7 @@ Good luck!
 
         self.count = 0
 
-        self.symbols = ["🟥", "🟧", "🟨", "🟩", "🟦", "🟪", "💲"]
+        self.symbols = ["⬜", "🟦", "🟪", "🟫", "⬛", "🟥", "💲"]
         self.outcome = []
         self.spins = 0
 
@@ -85,69 +85,20 @@ Good luck!
                 print("Calculating payout...")
                 sleep(1)
 
-            if self.outcome[0] == "🟥":
-                print(f"Your payout is: {self.player.bet * 3}")
-                self.player.data["bankroll"] += self.player.bet * 3
-                self.player.data["gamesWon"] += 1
-                self.house.data["bankroll"] -= self.player.bet * 3
-                self.player.savePlayerData(self.player.data)
-                self.player.displayPlayerBankroll()
-                self.house.saveHouseData()
-                sleep(5)
-            elif self.outcome[0] == "🟧":
-                print(f"Your payout is: {self.player.bet * 4}")
-                self.player.data["bankroll"] += self.player.bet * 4
-                self.player.data["gamesWon"] += 1
-                self.house.data["bankroll"] -= self.player.bet * 4
-                self.player.savePlayerData(self.player.data)
-                self.player.displayPlayerBankroll()
-                self.house.saveHouseData()
-                sleep(5)
-            elif self.outcome[0] == "🟨":
-                print(f"Your payout is: {self.player.bet * 5}")
-                self.player.data["bankroll"] += self.player.bet * 5
-                self.player.data["gamesWon"] += 1
-                self.house.data["bankroll"] -= self.player.bet * 5
-                self.player.savePlayerData(self.player.data)
-                self.player.displayPlayerBankroll()
-                self.house.saveHouseData()
-                sleep(5)
-            elif self.outcome[0] == "🟩":
-                print(f"Your payout is: {self.player.bet * 6}")
-                self.player.data["bankroll"] += self.player.bet * 6
-                self.player.data["gamesWon"] += 1
-                self.house.data["bankroll"] -= self.player.bet * 6
-                self.player.savePlayerData(self.player.data)
-                self.player.displayPlayerBankroll()
-                self.house.saveHouseData()
-                sleep(5)
+            if self.outcome[0] == "⬜":
+                self.winReward(amount = 2)
             elif self.outcome[0] == "🟦":
-                print(f"Your payout is: {self.player.bet * 7}")
-                self.player.data["bankroll"] += self.player.bet * 7
-                self.player.data["gamesWon"] += 1
-                self.house.data["bankroll"] -= self.player.bet * 7
-                self.player.savePlayerData(self.player.data)
-                self.player.displayPlayerBankroll()
-                self.house.saveHouseData()
-                sleep(5)
+                self.winReward(amount = 3)
             elif self.outcome[0] == "🟪":
-                print(f"Your payout is: {self.player.bet * 8}")
-                self.player.data["bankroll"] += self.player.bet * 8
-                self.player.data["gamesWon"] += 1
-                self.house.data["bankroll"] -= self.player.bet * 8
-                self.player.savePlayerData(self.player.data)
-                self.player.displayPlayerBankroll()
-                self.house.saveHouseData()
-                sleep(5)
+                self.winReward(amount = 4)
+            elif self.outcome[0] == "🟫":
+                self.winReward(amount = 5)
+            elif self.outcome[0] == "⬛":
+                self.winReward(amount = 10)
+            elif self.outcome[0] == "🟥":
+                self.winReward(amount = 20)
             elif self.outcome[0] == "💲":
-                print(f"Your payout is: {self.player.bet * 1000}")
-                self.player.data["bankroll"] += self.player.bet * 1000
-                self.player.data["gamesWon"] += 1
-                self.house.data["bankroll"] -= self.player.bet * 1000
-                self.player.savePlayerData(self.player.data)
-                self.player.displayPlayerBankroll()
-                self.house.saveHouseData()
-                sleep(5)
+                self.winReward(amount = 1000)
         else:
             self.player.updatePlayerBankroll(won=False)
             self.house.saveHouseData()
@@ -160,3 +111,27 @@ Good luck!
         """
         self.outcome = []
         self.gameStart()
+
+    def winReward(self, amount):
+        """
+        Handles the reward payout when a player wins on the slot machine.
+    
+        Arguments: amount (int): The multiplier for the bet amount.
+    
+        Updates:
+            - Player's bankroll with winnings
+            - Player's games won count
+            - House bankroll
+            - Saves updated data for both player and house
+            - Displays updated bankroll to player
+        """
+        self.totalWin = (amount * self.player.bet)
+        print(f"You won {self.totalWin:,}!")
+        sleep(3)
+        self.player.data["bankroll"] += self.totalWin
+        self.player.data["gamesWon"] += 1
+        self.house.data["bankroll"] -= self.totalWin
+        self.player.savePlayerData(self.player.data)
+        self.player.displayPlayerBankroll()
+        self.house.saveHouseData()
+        sleep(3)
