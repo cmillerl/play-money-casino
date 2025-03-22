@@ -10,20 +10,24 @@ class GameSlots:
 
         # Game description
         self.gameDescription = """
-Slots:
-
-Match 3 symbols to win! Different symbols have different payouts:
-
-🟥 - 3x your bet
-🟧 - 4x your bet
-🟨 - 5x your bet
-🟩 - 6x your bet
-🟦 - 7x your bet
-🟪 - 8x your bet
-💲 - JACKPOT! 1000x your bet!
-
-Good luck!
-        """
+╔══════════════════════════════╗
+║           SLOTS              ║
+╠══════════════════════════════╣
+║    Match 3 symbols to win!   ║
+║══════════════════════════════║
+║    SYMBOL COLOR & PAYOUTS    ║
+║══════════════════════════════║
+║  White    = 2x    your bet   ║
+║  Blue     = 3x    your bet   ║
+║  Purple   = 4x    your bet   ║
+║  Brown    = 5x    your bet   ║
+║  Black    = 10x   your bet   ║
+║  Red      = 20x   your bet   ║
+║  $$$      = 1000x your bet   ║
+║══════════════════════════════║
+║         Good luck!           ║
+╚══════════════════════════════╝
+        """ # fmt: skip
 
         # Initialize the house object.
         self.player = player
@@ -53,9 +57,9 @@ Good luck!
         except ValueError:
             errors.errorHandler()
 
-        for i in range(self.spins):    
+        for i in range(self.spins):
             self.spinSlots()
-        
+
         if self.player.continuePlay():
             self.resetGame()
 
@@ -86,19 +90,19 @@ Good luck!
                 sleep(1)
 
             if self.outcome[0] == "⬜":
-                self.winReward(amount = 2)
+                self.winReward(amount=2)
             elif self.outcome[0] == "🟦":
-                self.winReward(amount = 3)
+                self.winReward(amount=3)
             elif self.outcome[0] == "🟪":
-                self.winReward(amount = 4)
+                self.winReward(amount=4)
             elif self.outcome[0] == "🟫":
-                self.winReward(amount = 5)
+                self.winReward(amount=5)
             elif self.outcome[0] == "⬛":
-                self.winReward(amount = 10)
+                self.winReward(amount=10)
             elif self.outcome[0] == "🟥":
-                self.winReward(amount = 20)
+                self.winReward(amount=20)
             elif self.outcome[0] == "💲":
-                self.winReward(amount = 1000)
+                self.winReward(amount=1000)
         else:
             self.player.updatePlayerBankroll(won=False)
             self.house.saveHouseData()
@@ -115,9 +119,9 @@ Good luck!
     def winReward(self, amount):
         """
         Handles the reward payout when a player wins on the slot machine.
-    
+
         Arguments: amount (int): The multiplier for the bet amount.
-    
+
         Updates:
             - Player's bankroll with winnings
             - Player's games won count
@@ -125,7 +129,7 @@ Good luck!
             - Saves updated data for both player and house
             - Displays updated bankroll to player
         """
-        self.totalWin = (amount * self.player.bet)
+        self.totalWin = amount * self.player.bet
         print(f"You won {self.totalWin:,}!")
         sleep(3)
         self.player.data["bankroll"] += self.totalWin

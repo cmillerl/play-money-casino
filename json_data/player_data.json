@@ -1,7 +1,8 @@
 {
     "1": {
-        "bankroll": 100000000,
+        "playerName": "1",
+        "bankroll": 99990000,
         "gamesWon": 0,
-        "gamesLost": 0
+        "gamesLost": 1
     }
 }

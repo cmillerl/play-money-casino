@@ -24,6 +24,7 @@ class Player:
 
         # Default player data.
         self.data = {
+            "playerName": self.PlayerID,
             "bankroll": 100000000,
             "gamesWon": 0,
             "gamesLost": 0,
@@ -66,7 +67,11 @@ class Player:
         while True:
             try:
                 bet = (
-                    input("How much would you like to bet?\n").replace(",", "").strip()
+                    input("How much would you like to bet?:\n")
+                    .replace(",", "")
+                    .replace("$", "")
+                    .replace(".", "")
+                    .strip()
                 )
                 if bet in ["max", "all", "maximum"]:
                     self.bet = self.data["bankroll"]
@@ -134,7 +139,7 @@ class Player:
             print("You are out of funds.")
             exit()
         while True:
-            userSelection = input("Do you want to play again? (y/n)\n").lower().strip()
+            userSelection = input("Do you want to play again? (y/n):\n").lower().strip()
             if userSelection in ["yes", "y"]:
                 return True
             elif userSelection in ["no", "n"]:
@@ -171,7 +176,11 @@ class Player:
                 print(f"Total Amount Lost: {totalAmountWonLost:,} \n")
 
         while True:
-            attemptExit = input("Do you want to return to the main menu? (y/n):\n").lower().strip()
+            attemptExit = (
+                input("Do you want to return to the main menu? (y/n):\n")
+                .lower()
+                .strip()
+            )
             if attemptExit in ["yes", "y"]:
                 break
             elif attemptExit in ["no", "n"]:
@@ -203,7 +212,7 @@ class Player:
         while True:
             print("WARNING: This will reset your player data.")
             print("This action can't be undone.")
-            userSelection = input("Do you want to continue? (y/n)\n").lower().strip()
+            userSelection = input("Do you want to continue? (y/n):\n").lower().strip()
             if userSelection in ["yes", "y"]:
                 break
             elif userSelection in ["no", "n"]:
@@ -214,6 +223,7 @@ class Player:
         with open(self.filePath, "r") as file:
             allData = json.load(file)
             allData[self.PlayerID] = {
+                "playerName": self.PlayerID,
                 "bankroll": 100000000,
                 "gamesWon": 0,
                 "gamesLost": 0,

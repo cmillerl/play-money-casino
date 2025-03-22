@@ -83,7 +83,7 @@ You lose if the house beats your score.
                     self.resetGame()
             else:
                 while True:
-                    userSelection = (input("Do you want to roll the dice again?\n").lower().strip())  # fmt: skip
+                    userSelection = (input("Do you want to roll the dice again? (y/n):\n").lower().strip())  # fmt: skip
                     if userSelection in ["yes", "y"]:
                         print("You will roll again.")
                         sleep(1)

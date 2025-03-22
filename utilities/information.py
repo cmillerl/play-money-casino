@@ -6,7 +6,7 @@ def displayGameInformation(self):
     Display the game information for the current game the player is playing.
     """
     while self.count < 1:
-        userSelection = (input("Do you want to read the games description? (y/n)\n")).lower().strip()  # fmt: skip
+        userSelection = (input("Do you want to read the games description? (y/n):\n")).lower().strip()  # fmt: skip
         self.count += 1
         if userSelection in ["yes", "y"]:
             print(self.gameDescription)
@@ -19,7 +19,7 @@ def displayGameInformation(self):
             self.displayGameInformation()
 
         while True:
-            userSelection = input("Do you want to start the game? (y/n)\n").lower().strip()  # fmt: skip
+            userSelection = input("Do you want to start the game? (y/n):\n").lower().strip()  # fmt: skip
             if userSelection in ["yes", "y"]:
                 break
             elif userSelection in ["no", "n"]:
@@ -33,15 +33,23 @@ def printMenu(self):
     Print the menu for the game.
     """
     print("""
-Welcome to the casino!
-1. Play game: 100.
-2. Play game: Blackjack.
-3. Play game: 100 to 0.
-4. Play game: Slots.
-100. Display player statistics.
-101. Reset player data.
-102. Reset house data.
-0. Exit the casino.
+╔══════════════════════════════╗
+║     WELCOME TO THE CASINO    ║
+╠══════════════════════════════╣
+║          GAME MENU           ║
+╠══════════════════════════════╣
+║  1.  Play 100                ║
+║  2.  Play Blackjack          ║
+║  3.  Play 100 to 0           ║
+║  4.  Play Slots              ║
+╠══════════════════════════════╣
+║       PLAYER OPTIONS         ║
+╠══════════════════════════════╣
+║  0.   Exit Casino            ║
+║  100. View Statistics        ║
+║  101. Reset Player Data      ║
+║  102. Reset House Data       ║
+╚══════════════════════════════╝
 """)  # fmt: skip
     
 def exitCasino(self):
