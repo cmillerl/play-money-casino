@@ -1,8 +1,6 @@
 from random import randint
 from time import sleep
 from utilities import errors, information
-import player
-import house
 
 
 class GameSlots:
@@ -19,11 +17,11 @@ class GameSlots:
 ║══════════════════════════════║
 ║  White    = 2x    your bet   ║
 ║  Blue     = 3x    your bet   ║
-║  Purple   = 4x    your bet   ║
-║  Brown    = 5x    your bet   ║
-║  Black    = 10x   your bet   ║
-║  Red      = 20x   your bet   ║
-║  $$$      = 1000x your bet   ║
+║  Purple   = 5x    your bet   ║
+║  Brown    = 8x    your bet   ║
+║  Black    = 12x   your bet   ║
+║  Red      = 25x   your bet   ║
+║  $$$      = 600x your bet    ║
 ║══════════════════════════════║
 ║         Good luck!           ║
 ╚══════════════════════════════╝
@@ -94,15 +92,15 @@ class GameSlots:
             elif self.outcome[0] == "🟦":
                 self.winReward(amount=3)
             elif self.outcome[0] == "🟪":
-                self.winReward(amount=4)
-            elif self.outcome[0] == "🟫":
                 self.winReward(amount=5)
+            elif self.outcome[0] == "🟫":
+                self.winReward(amount=8)
             elif self.outcome[0] == "⬛":
-                self.winReward(amount=10)
+                self.winReward(amount=12)
             elif self.outcome[0] == "🟥":
-                self.winReward(amount=20)
+                self.winReward(amount=25)
             elif self.outcome[0] == "💲":
-                self.winReward(amount=1000)
+                self.winReward(amount=600)
         else:
             self.player.updatePlayerBankroll(won=False)
             self.house.saveHouseData()

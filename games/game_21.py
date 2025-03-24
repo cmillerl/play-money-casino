@@ -1,8 +1,6 @@
 from random import randint
 from time import sleep
-from utilities import errors, information, deck
-import player
-import house
+from utilities import information, deck
 
 
 class Game21:

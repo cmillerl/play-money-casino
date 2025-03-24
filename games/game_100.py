@@ -1,8 +1,6 @@
 from random import randint
 from time import sleep
 from utilities import errors, information
-import player
-import house
 
 
 class Game100:
